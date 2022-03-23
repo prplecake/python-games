@@ -23,7 +23,7 @@ class SnakeAndApple:
 
     def __init__(self):
         self.window = Tk()
-        self.window.title('Snake and Apples')
+        self.window.title('Snake')
         self.canvas = Canvas(self.window, width=size_of_board, height=size_of_board)
         self.canvas.pack()
 
