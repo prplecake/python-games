@@ -150,8 +150,7 @@ class TicTacToe:
     def is_grid_occupied(self, logical_position):
         if self.board_status[logical_position[0]][logical_position[1]] == 0:
             return False
-        else:
-            return True
+        return True
 
     def is_winner(self, player):
         player = -1 if player == 'X' else 1
