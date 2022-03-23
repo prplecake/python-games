@@ -92,6 +92,16 @@ class DotsAndBoxes:
                                     x,
                                     fill='gray', dash=(2, 2))
 
+        for i in range(number_of_dots):
+            for j in range(number_of_dots):
+                start_x = i * distance_between_dots + distance_between_dots / 2
+                end_x = j * distance_between_dots + distance_between_dots / 2
+                self.canvas.create_oval(
+                    start_x - dot_width / 2, end_x - dot_width / 2,
+                    start_x + dot_width / 2, end_x + dot_width / 2,
+                    fill=dot_color, outline=dot_color
+                )
+
     def display_turn_text(self):
         text = 'Next turn: '
         if self.player1_turn:
