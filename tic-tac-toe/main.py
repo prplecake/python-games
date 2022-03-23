@@ -54,6 +54,55 @@ class TicTacToe:
         self.player_X_turns = self.player_X_starts
         self.board_status = np.zeros(shape=(3, 3))
 
+    ###################
+    # Drawing Functions
+    ###################
+
+    def draw_O(self, logical_position):
+        logical_position = np.array(logical_position)
+        grid_position = self.convert_logical_to_grid_position(logical_position)
+        self.canvas.create_oval(grid_position[0] - symbol_size, grid_position[1] - symbol_size,
+                                grid_position[0] + symbol_size, grid_position[1] + symbol_size, width=symbol_thickness,
+                                fill=symbol_O_color)
+
+    def draw_X(self, logical_position):
+        grid_position = self.convert_logical_to_grid_position(logical_position)
+        self.canvas.create_line(grid_position[0] - symbol_size, grid_position[1] - symbol_size,
+                                grid_position[0] + symbol_size, grid_position[1] + symbol_size, width=symbol_thickness,
+                                fill=symbol_X_color)
+        self.canvas.create_line(grid_position[0] - symbol_size, grid_position[1] + symbol_size,
+                                grid_position[0] + symbol_size, grid_position[1] - symbol_size, width=symbol_thickness,
+                                fill=symbol_X_color)
+
+    def display_gameover(self):
+        if self.X_wins:
+            self.X_score += 1
+            text = 'Winner: Player 1 (X)'
+            color = symbol_X_color
+        elif self.O_wins:
+            self.O_score += 1
+            text = 'Winner: Player 2 (O)'
+            color = symbol_O_color
+        else:
+            self.tie_score += 1
+            text = 'It\'s a tie'
+            color = 'gray'
+
+        self.canvas.delete('all')
+        self.canvas.create_text(size_of_board / 2, size_of_board / 3, font='cmr 60 bold', fill=color, text=text)
+
+        score_text = 'Scores \n'
+        self.canvas.create_text(size_of_board / 2, 5 * size_of_board / 8, font='cmr 40 bold', fill=green_color, text=score_text)
+
+        score_text = f'Player 1 (X): {self.X_score}\n'
+        score_text += f'Player 2 (O): {self.O_score}\n'
+        score_text += f'Tie: {self.tie_score}'
+        self.canvas.create_text(size_of_board / 2, 3 * size_of_board / 4, font='cmr 30 bold', fill=green_color, text=score_text)
+        self.reset_board = True
+
+        score_text = 'Click to play again\n'
+        self.canvas.create_text(size_of_board / 2, 15 * size_of_board / 16, font='cmr 20 bold', fill='gray', text=score_text)
+
     def click(self, event):
         grid_position = 
 
