@@ -1,4 +1,4 @@
-# https://github.com/aqeelanwar/Dots-and-Boxes/blob/master/main.py
+# https://github.com/aqeelanwar/Dots-and-Boxes
 
 from tkinter import Canvas, Tk
 import numpy as np
