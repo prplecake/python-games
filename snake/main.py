@@ -51,7 +51,7 @@ class SnakeAndApple:
         for i in range(cols):
             self.canvas.create_line(
                 0, i * size_of_board / cols,
-                size_of_board / rows, size_of_board
+                size_of_board, i * size_of_board / cols
             )
 
     def initialize_snake(self):
