@@ -34,7 +34,7 @@ class TicTacToe:
         self.gameover = False
         self.tie = False
         self.X_wins = False
-        self.O_wind = False
+        self.O_wins = False
 
         self.X_score = 0
         self.O_score = 0
@@ -156,6 +156,7 @@ class TicTacToe:
 
         # Three in a row
         for i in range(3):
+            # pylint: disable=line-too-long
             if self.board_status[i][0] == self.board_status[i][1] == self.board_status[i][2] == player:
                 return True
             if self.board_status[0][i] == self.board_status[1][i] == self.board_status[2][i] == player:
@@ -171,7 +172,7 @@ class TicTacToe:
         return False
 
     def is_tie(self):
-        r, c = np.where(self.board_status == 0)
+        r, _ = np.where(self.board_status == 0)
         tie = False
         if len(r) == 0:
             tie = True
