@@ -237,7 +237,6 @@ class SnakeAndApple:
     def key_input(self, event):
         if not self.crashed:
             key_pressed = event.keysym.lower()
-            print(key_pressed)
             # Check if the key pressed is a valid key
             if self.check_if_key_valid(key_pressed):
                 self.begin = True
