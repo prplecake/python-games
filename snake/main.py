@@ -136,10 +136,10 @@ class SnakeAndApple:
 
     def display_snake(self, mode=''):
         # Remove tail from display if it exists
-        if self.snake_objects != []:
+        if self.snake_objects:
             self.canvas.delete(self.snake_objects.pop(0))
         if mode == 'complete':
-            for i, cell in enumerate(self.snake):
+            for _, cell in enumerate(self.snake):
                 row_h = int(size_of_board / rows)
                 col_w = int(size_of_board / cols)
                 x1 = cell[0] * row_h
@@ -189,7 +189,7 @@ class SnakeAndApple:
     ###################
     # Logical Functions
     ###################
-    
+
     def update_snake(self, key):
         # Check if snake hit the wall or itself
         tail = self.snake[0]
