@@ -23,7 +23,7 @@ class SnakeAndApple:
 
     def __init__(self):
         self.window = Tk()
-        self.window.title('Snake and Apples')
+        self.window.title('Snake')
         self.canvas = Canvas(self.window, width=size_of_board, height=size_of_board)
         self.canvas.pack()
 
@@ -135,26 +135,8 @@ class SnakeAndApple:
         )
 
     def display_snake(self, mode=''):
-        # Remove tail from display if it exists
-        if self.snake_objects:
-            self.canvas.delete(self.snake_objects.pop(0))
-        if mode == 'complete':
-            for _, cell in enumerate(self.snake):
-                row_h = int(size_of_board / rows)
-                col_w = int(size_of_board / cols)
-                x1 = cell[0] * row_h
-                y1 = cell[1] * col_w
-                x2 = x1 + row_h
-                y2 = y1 + col_w
-                self.snake_objects.append(
-                    self.canvas.create_rectangle(
-                        x1, y1, x2, y2,
-                        fill=BLUE_COLOR, outline=BLUE_COLOR
-                    )
-                )
-        else:
-            # only update head
-            cell = self.snake[-1]
+
+        def update_snake(cell):
             row_h = int(size_of_board / rows)
             col_w = int(size_of_board / cols)
             x1 = cell[0] * row_h
@@ -167,6 +149,17 @@ class SnakeAndApple:
                     fill=BLUE_COLOR, outline=BLUE_COLOR
                 )
             )
+
+        # Remove tail from display if it exists
+        if self.snake_objects:
+            self.canvas.delete(self.snake_objects.pop(0))
+        if mode == 'complete':
+            for _, cell in enumerate(self.snake):
+                update_snake(cell)
+        else:
+            # only update head
+            cell = self.snake[-1]
+            update_snake(cell)
             if self.snake[0] == self.old_apple_cell:
                 self.snake.insert(0, self.old_apple_cell)
                 self.old_apple_cell = []
