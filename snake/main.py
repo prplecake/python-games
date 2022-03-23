@@ -231,7 +231,7 @@ class SnakeAndApple:
             return True
         return False
 
-    def mouse_input(self, event):
+    def mouse_input(self, event): # pylint: disable=unused-argument
         self.play_again()
 
     def key_input(self, event):
