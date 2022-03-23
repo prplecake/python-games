@@ -156,7 +156,8 @@ class DotsAndBoxes:
     # Logical Functions
     ###################
 
-    def convert_grid_to_logical_position(self, grid_position):
+    @staticmethod
+    def convert_grid_to_logical_position(grid_position):
         grid_position = np.array(grid_position)
         position = (grid_position - distance_between_dots / 4)//(distance_between_dots / 2)
 
