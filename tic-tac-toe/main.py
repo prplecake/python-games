@@ -37,17 +37,27 @@ class TicTacToe:
         self.X_score = 0
         self.O_score = 0
         self.tie_score = 0
-    
+
     def mainloop(self):
         self.window.mainloop()
-    
+
     def initialize_board(self):
         for i in range(2):
-            self.canvas.create_line((i + 1) * size_of_board / 3, 0, (i + 1) * size_of_board / 3, size_of_board)
-        
+            self.canvas.create_line(
+                (i + 1) * size_of_board / 3,
+                0,
+                (i + 1) * size_of_board / 3,
+                size_of_board
+            )
+
         for i in range(2):
-            self.canvas.create_line(0, (i + 1) * size_of_board / 3, size_of_board, (i + 1) * size_of_board / 3)
-    
+            self.canvas.create_line(
+                0,
+                (i + 1) * size_of_board / 3,
+                size_of_board,
+                (i + 1) * size_of_board / 3
+            )
+
     def play_again(self):
         self.initialize_board()
         self.player_X_starts = not self.player_X_starts
@@ -61,18 +71,24 @@ class TicTacToe:
     def draw_O(self, logical_position):
         logical_position = np.array(logical_position)
         grid_position = self.convert_logical_to_grid_position(logical_position)
-        self.canvas.create_oval(grid_position[0] - symbol_size, grid_position[1] - symbol_size,
-                                grid_position[0] + symbol_size, grid_position[1] + symbol_size, width=symbol_thickness,
-                                fill=symbol_O_color)
+        self.canvas.create_oval(
+            grid_position[0] - symbol_size, grid_position[1] - symbol_size,
+            grid_position[0] + symbol_size, grid_position[1] + symbol_size,
+            width=symbol_thickness, fill=symbol_O_color
+        )
 
     def draw_X(self, logical_position):
         grid_position = self.convert_logical_to_grid_position(logical_position)
-        self.canvas.create_line(grid_position[0] - symbol_size, grid_position[1] - symbol_size,
-                                grid_position[0] + symbol_size, grid_position[1] + symbol_size, width=symbol_thickness,
-                                fill=symbol_X_color)
-        self.canvas.create_line(grid_position[0] - symbol_size, grid_position[1] + symbol_size,
-                                grid_position[0] + symbol_size, grid_position[1] - symbol_size, width=symbol_thickness,
-                                fill=symbol_X_color)
+        self.canvas.create_line(
+            grid_position[0] - symbol_size, grid_position[1] - symbol_size,
+            grid_position[0] + symbol_size, grid_position[1] + symbol_size,
+            width=symbol_thickness, fill=symbol_X_color
+        )
+        self.canvas.create_line(
+            grid_position[0] - symbol_size, grid_position[1] + symbol_size,
+            grid_position[0] + symbol_size, grid_position[1] - symbol_size,
+            width=symbol_thickness, fill=symbol_X_color
+        )
 
     def display_gameover(self):
         if self.X_wins:
@@ -89,19 +105,31 @@ class TicTacToe:
             color = 'gray'
 
         self.canvas.delete('all')
-        self.canvas.create_text(size_of_board / 2, size_of_board / 3, font='cmr 60 bold', fill=color, text=text)
+        self.canvas.create_text(
+            size_of_board / 2, size_of_board / 3,
+            font='cmr 60 bold', fill=color, text=text
+        )
 
         score_text = 'Scores \n'
-        self.canvas.create_text(size_of_board / 2, 5 * size_of_board / 8, font='cmr 40 bold', fill=green_color, text=score_text)
+        self.canvas.create_text(
+            size_of_board / 2, 5 * size_of_board / 8,
+            font='cmr 40 bold', fill=green_color, text=score_text
+        )
 
         score_text = f'Player 1 (X): {self.X_score}\n'
         score_text += f'Player 2 (O): {self.O_score}\n'
         score_text += f'Tie: {self.tie_score}'
-        self.canvas.create_text(size_of_board / 2, 3 * size_of_board / 4, font='cmr 30 bold', fill=green_color, text=score_text)
+        self.canvas.create_text(
+            size_of_board / 2, 3 * size_of_board / 4,
+            font='cmr 30 bold', fill=green_color, text=score_text
+        )
         self.reset_board = True
 
         score_text = 'Click to play again\n'
-        self.canvas.create_text(size_of_board / 2, 15 * size_of_board / 16, font='cmr 20 bold', fill='gray', text=score_text)
+        self.canvas.create_text(
+            size_of_board / 2, 15 * size_of_board / 16,
+            font='cmr 20 bold', fill='gray', text=score_text
+        )
 
     ###################
     # Logical Functions
@@ -130,14 +158,14 @@ class TicTacToe:
                 return True
             if self.board_status[0][i] == self.board_status[1][i] == self.board_status[2][i] == player:
                 return True
-        
+
         # Diagonals
         if self.board_status[0][0] == self.board_status[1][1] == self.board_status[2][2] == player:
             return True
-        
+
         if self.board_status[0][2] == self.board_status[1][1] == self.board_status[2][0] == player:
             return True
-        
+
         return False
 
     def is_tie(self):
@@ -146,16 +174,16 @@ class TicTacToe:
         if len(r) == 0:
             tie = True
         return tie
-    
+
     def is_gameover(self):
         # Either someone won or all grid spaces are occupied
         self.X_wins = self.is_winner('X')
         if not self.X_wins:
             self.O_wins = self.is_winner('O')
-        
+
         if not self.O_wins:
             self.tie = self.is_tie()
-        
+
         gameover = self.X_wins or self.O_wins or self.tie
 
         if self.X_wins:
