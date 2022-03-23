@@ -30,12 +30,17 @@ class DotsAndBoxes:
         self.canvas.pack()
         self.window.bind('<Button-1>', self.click)
         self.player1_starts = True
+        self.player1_turn = self.player1_starts
+        self.turntext_handle = []
+        self.reset_board = False
         self.refresh_board()
         self.play_again()
 
     def play_again(self):
         self.refresh_board()
-        self.board_status = np.zeros(shape=(number_of_dots - 1, number_of_dots - 1))
+        self.board_status = np.zeros(
+            shape=(number_of_dots - 1, number_of_dots - 1)
+        )
         self.row_status = np.zeros(shape=(number_of_dots, number_of_dots - 1))
         self.col_status = np.zeros(shape=(number_of_dots - 1, number_of_dots))
 
@@ -56,6 +61,7 @@ class DotsAndBoxes:
     ###################
 
     def make_edge(self, type, logical_position):
+        # pylint: disable=line-too-long
         if type == 'row':
             start_x = distance_between_dots / 2 + logical_position[0] * distance_between_dots
             end_x = start_x + distance_between_dots
@@ -120,16 +126,26 @@ class DotsAndBoxes:
             color = 'gray'
 
         self.canvas.delete('all')
-        self.canvas.create_text(size_of_board / 2, size_of_board / 3, font='cmr 60 bold', fill=color, text=text)
+        self.canvas.create_text(
+            size_of_board / 2, size_of_board / 3,
+            font='cmr 60 bold', fill=color, text=text
+        )
 
         score_text = 'Scores\n'
-        self.canvas.create_text(size_of_board / 2, 5 * size_of_board / 8, font='cmr 40 bold', fill=green_color, text=score_text)
+        self.canvas.create_text(
+            size_of_board / 2, 5 * size_of_board / 8,
+            font='cmr 40 bold', fill=green_color, text=score_text
+        )
 
         score_text = f'Player 1: {player1_score}\n'
         score_text += f'Player 2: {player2_score}\n'
-        self.canvas.create_text(size_of_board / 2, 15 * size_of_board / 16, font='cmr 20 bold', fill='gray', text=score_text)
+        self.canvas.create_text(
+            size_of_board / 2, 15 * size_of_board / 16,
+            font='cmr 20 bold', fill='gray', text=score_text
+        )
 
     def shade_box(self, box, color):
+        # pylint: disable=line-too-long
         start_x = distance_between_dots / 2 + box[1] * distance_between_dots + edge_width / 2
         start_y = distance_between_dots / 2 + box[0] * distance_between_dots + edge_width / 2
         end_x = start_x + distance_between_dots - edge_width
@@ -174,14 +190,14 @@ class DotsAndBoxes:
     def mark_box(self):
         boxes = np.argwhere(self.board_status == -4)
         for box in boxes:
-            if list(box) not in self.already_marked_boxes and list(box) !=[]:
+            if list(box) not in self.already_marked_boxes and list(box):
                 self.already_marked_boxes.append(list(box))
                 color = player1_color_light
                 self.shade_box(box, color)
 
         boxes = np.argwhere(self.board_status == 4)
         for box in boxes:
-            if list(box) not in self.already_marked_boxes and list(box) !=[]:
+            if list(box) not in self.already_marked_boxes and list(box):
                 self.already_marked_boxes.append(list(box))
                 color = player2_color_light
                 self.shade_box(box, color)
