@@ -1,4 +1,4 @@
-from tkinter import *
+from tkinter import Canvas, Tk
 import numpy as np
 
 size_of_board = 600
